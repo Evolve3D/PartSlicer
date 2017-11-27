@@ -8,3 +8,8 @@ Also useful in situation where the 3d printer's firmware cannot be modified henc
 Features:
 - Slice one gcode into multiple by specifying layer numbers
 - Heat bed is kept turned on after parts print and only turn off after the final part
+
+Usage:
+- Before you start make sure python 2.7 is installed
+- Put your stl file in Cura and slice it as usual
+- Open the script via console and you will will know what to do
