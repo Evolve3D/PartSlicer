@@ -11,6 +11,6 @@ Features:
 
 Usage:
 - Before you start make sure python 2.7 is installed
-- Put your stl file in Cura and slice it as usual
+- Put your stl file in Cura and slice it with "Z Hop when retracted" turned on
 - Open the script via console and you will will know what to do
 - Oh, the script works only inside the directory it is in, so make sure you move the master gcode file to the same folder to work on it
