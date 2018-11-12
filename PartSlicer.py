@@ -91,8 +91,7 @@ def sliceButtonFunction():
         else:
             break
         headCounter+=1
-    #modified header (a function instead to set new Extruder position of G92)
-    #
+    #modified header (a function instead to set new Extruder position of G92)    
     #footer
     footerCounter=len(masterFileStringSplit)-1
     firstEncounter=False
@@ -207,7 +206,7 @@ def getLayersGcode(start,end):
     #seek for layers
     for index,line in enumerate(masterFileStringSplit):
         if line==";LAYER:"+str(start):
-            layerGcodeStart=index
+            layerGcodeStart=index            
         elif line==";LAYER:"+str(end+1):
             layerGcodeEnd=index-1
         if layerGcodeStart!=-1 and layerGcodeEnd!=-1:
@@ -220,11 +219,24 @@ def getLayersGcode(start,end):
                 layerGcodeEnd=backCounter-2
                 break
             backCounter-=1
+    #extra line of code to bring printer to vertically correct start point first before start
+    #get the first positioning line
+    posLine=masterFileStringSplit[layerGcodeStart+1]
+    zPos=""
+    if posLine[:2]=="G0":
+        #extract z position
+        zPos=posLine.split()[-1]
+        zPos=float(zPos[1:])
+        zPos+=1.000
+        zPos="Z"+str(zPos)
     #put into string
     layerGcode=""
     while layerGcodeStart<=layerGcodeEnd:
         layerGcode+=masterFileStringSplit[layerGcodeStart]+"\n"
         layerGcodeStart+=1
+    #add that extra z positioning line
+    if zPos!="":
+        layerGcode="G0 X0 Y0 "+zPos+"\n"+layerGcode
     return layerGcode
 
 #launch the UI
